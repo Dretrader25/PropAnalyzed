@@ -1,0 +1,10 @@
+language = "python3"
+run = "uvicorn app.main:app --host 0.0.0.0 --port 8080"
+
+# Optional: Configure environment variables directly if not using Replit Secrets UI for some reason
+# (Not recommended for sensitive keys, use Secrets UI for those)
+# [env]
+# PYTHON_VERSION = "3.10" # Or your desired Python version if different from default
+
+# Entrypoint (if different from run, but for FastAPI, run is usually the main thing)
+# entrypoint = "app/main.py"
