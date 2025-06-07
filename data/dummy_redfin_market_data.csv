@@ -1,0 +1,13 @@
+Region,Period,Metric,Value
+Anytown,2023-10,Average DOM,35
+Anytown,2023-10,Median Sale Price,550000
+Anytown,2023-10,Price Trend (6m),up 3%
+Anytown,2023-10,Inventory Level,low
+Otherville,2023-10,Average DOM,42
+Otherville,2023-10,Median Sale Price,480000
+Otherville,2023-10,Price Trend (6m),stable
+Otherville,2023-10,Inventory Level,balanced
+90210,2023-09,Average DOM,25
+90210,2023-09,Median Sale Price,1200000
+90210,2023-09,Price Trend (6m),up 5%
+90210,2023-09,Inventory Level,very low
