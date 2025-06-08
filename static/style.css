@@ -1,126 +1,278 @@
+/* Keep existing styles from before, and add/modify below */
+
 body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
     margin: 0;
-    padding: 20px;
-    background-color: #f4f4f8; /* Slightly different background */
+    padding: 0; /* Remove default body padding, handle with container */
+    background-color: #f4f4f8;
     color: #333;
     line-height: 1.6;
 }
 
 .container {
-    max-width: 800px;
+    max-width: 1200px; /* Wider for dashboard */
     margin: 20px auto;
     background-color: #fff;
-    padding: 25px 30px;
+    padding: 20px 30px; /* Adjusted padding */
     border-radius: 8px;
     box-shadow: 0 2px 15px rgba(0,0,0,0.1);
 }
 
 h1 {
-    color: #2c3e50; /* Darker blue-grey */
-    margin-bottom: 20px;
+    color: #2c3e50;
+    margin-bottom: 25px;
     text-align: center;
 }
 
-h2 {
-    color: #34495e; /* Another shade for subheadings */
-    margin-top: 30px;
+h2 { /* Section headers */
+    color: #34495e;
+    margin-top: 10px; /* Reduced top margin for sections */
+    margin-bottom: 15px;
+    border-bottom: 2px solid #007bff; /* Accent border */
+    padding-bottom: 8px;
+    font-size: 1.4rem;
+}
+
+h2 .icon { /* Style for emoji icons */
+    margin-right: 8px;
+    font-size: 1.3rem; /* Slightly smaller than text for balance */
+}
+
+h3 { /* Sub-headers like in calculator */
+    color: #34495e;
+    margin-top: 15px;
     margin-bottom: 10px;
-    border-bottom: 1px solid #eee;
-    padding-bottom: 5px;
+    font-size: 1.1rem;
+}
+
+.input-section {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 6px;
+    margin-bottom: 30px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
 }
 
 label {
     display: block;
-    margin-bottom: 8px;
-    font-weight: bold;
-    color: #555;
+    margin-bottom: 6px;
+    font-weight: 600; /* Slightly bolder */
+    color: #455a64; /* Darker label color */
 }
 
-input[type="text"] {
-    width: calc(100% - 24px); /* Account for padding */
-    padding: 12px;
-    margin-bottom: 20px; /* More space after input */
+input[type="text"],
+input[type="number"] { /* Apply to number inputs as well */
+    width: calc(100% - 24px);
+    padding: 10px 12px; /* Adjusted padding */
+    margin-bottom: 15px; /* Consistent margin */
     border: 1px solid #ccc;
     border-radius: 4px;
-    box-sizing: border-box; /* Important for width calculation */
-    font-size: 1rem;
+    box-sizing: border-box;
+    font-size: 0.95rem;
 }
 
-input[type="text"]:focus {
+input[type="text"]:focus,
+input[type="number"]:focus {
     border-color: #007bff;
     box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
     outline: none;
 }
 
-button {
-    display: inline-block; /* Or block if you want full width */
+button#submitAddress { /* More specific selector */
+    display: block; /* Make button full width in its container */
+    width: 100%;
     padding: 12px 20px;
     background-color: #007bff;
     color: white;
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    font-size: 1rem;
+    font-size: 1.05rem; /* Slightly larger */
+    font-weight: 500;
     transition: background-color 0.2s ease-in-out;
 }
 
-button:hover {
+button#submitAddress:hover {
     background-color: #0056b3;
 }
 
-button:active {
+button#submitAddress:active {
     background-color: #004085;
 }
 
-#responseArea {
+/* Dashboard Layout */
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); /* Responsive columns */
+    gap: 25px; /* Gap between sections */
     margin-top: 20px;
-    padding: 15px;
-    background-color: #f9f9f9; /* Lighter background for response */
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    white-space: pre-wrap;    /* CSS3 */
-    white-space: -moz-pre-wrap; /* Firefox */
-    white-space: -pre-wrap;     /* Opera <7 */
-    white-space: -o-pre-wrap;   /* Opera 7 */
-    word-wrap: break-word;      /* IE */
-    min-height: 100px;
-    font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
-    font-size: 0.9rem;
+}
+
+.dashboard-section {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 6px;
+    box-shadow: 0 1px 5px rgba(0,0,0,0.08);
+}
+
+.dashboard-section.full-width-section {
+    grid-column: 1 / -1; /* Span all columns */
+}
+
+.data-fields p, .calculator-inputs p, .calculator-results p {
+    margin-bottom: 10px; /* Space between data points */
     line-height: 1.5;
 }
-
-.loading {
-    font-style: italic;
-    color: #555; /* Darker grey for loading */
+.data-fields p strong, .calculator-inputs p strong, .calculator-results p strong {
+    color: #333; /* Ensure strong tags are clearly visible */
+    margin-right: 5px;
+}
+.data-fields span, .calculator-results span { /* For the data values */
+    color: #007bff; /* Highlight data values */
+    font-weight: 500;
 }
 
-.error {
-    color: #d9534f; /* Bootstrap danger color */
+.property-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 10px;
+    margin-top: 10px;
+}
+.property-stats div {
+    background-color: #f9f9f9;
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #eee;
+}
+
+/* Comps Table Styling */
+#compsTableContainer table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+#compsTableContainer th, #compsTableContainer td {
+    border: 1px solid #ddd;
+    padding: 10px; /* More padding */
+    text-align: left;
+    font-size: 0.9rem;
+}
+#compsTableContainer th {
+    background-color: #007bff; /* Header background */
+    color: white;
+    font-weight: 600;
+}
+#compsTableContainer tbody tr:nth-child(even) {
+    background-color: #f9f9f9; /* Zebra striping */
+}
+#compsTableContainer tbody tr:hover {
+    background-color: #e9ecef; /* Hover effect */
+}
+
+/* Wholesale Calculator Specifics */
+.calculator-flex-container {
+    display: flex;
+    flex-wrap: wrap; /* Allow wrapping on small screens */
+    gap: 30px;
+}
+.calculator-inputs, .calculator-results {
+    flex: 1;
+    min-width: 280px; /* Minimum width before wrapping */
+}
+.calculator-inputs input[type="number"] {
+    margin-bottom: 10px; /* Slightly less margin within calculator */
+}
+.calculator-results .result-highlight {
+    font-size: 1.1rem;
     font-weight: bold;
-    padding: 10px;
+    margin-top: 15px;
+}
+ .calculator-results .result-highlight span {
+    color: #28a745; /* Green for positive results */
+ }
+.calculator-results .result-note small {
+    display: block;
+    margin-top: 5px;
+    color: #666;
+    font-size: 0.85em;
+}
+#calc-suggested-arv { /* Make suggested ARV stand out a bit */
+    font-weight: bold;
+}
+
+
+/* Loading and Error Messages (already had some inline) */
+#loadingMessage.loading { /* More specific selector */
+    text-align: center;
+    padding: 15px;
+    font-style: italic;
+    color: #555;
+    background-color: #e9ecef;
+    border-radius: 4px;
+    margin-bottom: 20px;
+}
+
+#errorMessage.error { /* More specific selector */
+    color: #d9534f;
+    font-weight: normal; /* Let pre inside handle bolding for error details */
+    padding: 15px;
     border: 1px solid #d9534f;
     background-color: #f2dede;
     border-radius: 4px;
+    margin-bottom: 20px;
 }
-
-.error pre { /* Style for preformatted error details */
+#errorMessage.error pre { /* Style for preformatted error details inside error message div */
     margin-top: 10px;
     padding: 10px;
-    background-color: #eee;
+    background-color: #f8f9fa; /* Lighter than error message background */
     border-radius: 3px;
-    border: 1px solid #ccc;
-    color: #333; /* Make sure pre text is readable */
-    font-weight: normal; /* Reset bold from parent .error */
+    border: 1px solid #ced4da;
+    color: #212529;
+    font-weight: normal;
+    white-space: pre-wrap;
+    word-wrap: break-word;
 }
 
-/* Basic responsive touch */
-@media (max-width: 600px) {
+
+/* Collapsible Full API Response */
+#fullApiResponseSection {
+    margin-top: 20px;
+    background-color: #f8f9fa; /* Lighter background */
+}
+#fullApiResponseSection summary {
+    cursor: pointer;
+    font-weight: bold;
+    padding: 10px;
+    background-color: #e9ecef;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+}
+#fullApiResponseSection pre#responseArea { /* Target the pre tag inside */
+    margin-top: 0; /* Remove top margin if summary is clicked */
+    padding: 15px;
+    background-color: #333; /* Dark background for JSON */
+    color: #f0f0f0; /* Light text for JSON */
+    border: 1px solid #ddd;
+    border-top: none; /* Avoid double border with summary */
+    border-radius: 0 0 4px 4px; /* Round bottom corners */
+    font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+    font-size: 0.85rem;
+    line-height: 1.4;
+}
+
+
+/* Responsive adjustments (already had a basic one) */
+@media (max-width: 768px) { /* Adjust breakpoint */
+    .dashboard-grid {
+        grid-template-columns: 1fr; /* Stack sections on smaller screens */
+    }
+    .calculator-flex-container {
+        flex-direction: column; /* Stack calculator inputs and results */
+    }
     .container {
         margin: 10px;
         padding: 15px;
     }
-    input[type="text"], button {
-        font-size: 0.95rem; /* Slightly smaller on small screens */
-    }
+    h1 { font-size: 1.8rem; }
+    h2 { font-size: 1.2rem; }
 }

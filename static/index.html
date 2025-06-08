@@ -3,28 +3,106 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Property Lead Enrichment</title>
-    <!-- Link to CSS file -->
+    <title>Wholesaler Property Analyzer</title>
     <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
     <div class="container">
-        <h1>Property Information Lookup</h1>
+        <h1>Property Analyzer</h1>
 
-        <div>
+        <div class="input-section">
             <label for="addressInput">Enter Address:</label>
             <input type="text" id="addressInput" placeholder="e.g., 123 Main St, Anytown, CA 90210">
+            <button id="submitAddress">Analyze Property</button>
         </div>
 
-        <button id="submitAddress">Get Property Info</button>
+        <div id="loadingMessage" class="loading" style="display: none;">Loading property information...</div>
+        <div id="errorMessage" class="error" style="display: none;"></div>
 
-        <h2>API Response:</h2>
-        <div id="responseArea" aria-live="polite">
-            <p>Enter an address and click "Get Property Info" to see the results here.</p>
+        <div class="dashboard-grid">
+            <section id="propertyOverview" class="dashboard-section">
+                <h2><span class="icon">🏠</span> Property Overview</h2>
+                <div class="data-fields">
+                    <p><strong>Full Address:</strong> <span id="prop-address">N/A</span></p>
+                    <p><strong>Property Type:</strong> <span id="prop-type">N/A</span></p>
+                    <div class="property-stats">
+                        <div><strong>Beds:</strong> <span id="prop-beds">N/A</span></div>
+                        <div><strong>Baths:</strong> <span id="prop-baths">N/A</span></div>
+                        <div><strong>SqFt:</strong> <span id="prop-sqft">N/A</span> sqft</div>
+                        <div><strong>Lot Size:</strong> <span id="prop-lot-size">N/A</span> sqft</div>
+                        <div><strong>Year Built:</strong> <span id="prop-year-built">N/A</span></div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="listingMarketInfo" class="dashboard-section">
+                <h2><span class="icon">📈</span> Listing & Market Info</h2>
+                <div class="data-fields">
+                    <p><strong>Listing Status:</strong> <span id="listing-status">N/A</span></p>
+                    <p><strong>List Price:</strong> $<span id="listing-price">N/A</span></p>
+                    <p><strong>Days On Market (DOM):</strong> <span id="listing-dom">N/A</span></p>
+                    <hr>
+                    <p><strong>Area Average DOM:</strong> <span id="market-avg-dom">N/A</span> days</p>
+                    <p><strong>Area Median Sale Price:</strong> $<span id="market-median-price">N/A</span></p>
+                    <p><strong>Area Price Trend (6m):</strong> <span id="market-price-trend">N/A</span></p>
+                    <p><strong>Area Inventory Level:</strong> <span id="market-inventory-level">N/A</span></p>
+                </div>
+            </section>
+
+            <section id="comparableSalesAnalysis" class="dashboard-section full-width-section">
+                <h2><span class="icon">🏘️</span> Comparable Sales Analysis</h2>
+                <div class="data-fields">
+                    <div id="compsTableContainer">
+                        <!-- JS will build table here -->
+                        <p>No comparable sales data loaded yet.</p>
+                    </div>
+                    <p><strong>Average Price/SqFt (Comps):</strong> $<span id="comps-avg-price-per-sqft">N/A</span></p>
+                </div>
+            </section>
+
+            <section id="wholesaleCalculator" class="dashboard-section full-width-section">
+                <h2><span class="icon">🧮</span> Wholesale Calculator (Conceptual)</h2>
+                <div class="calculator-flex-container"> <!-- New flex container for layout -->
+                    <div class="calculator-inputs">
+                        <h3>Enter Estimates:</h3>
+                        <p>
+                            <label for="calc-arv">Estimated ARV ($):</label>
+                            <input type="number" id="calc-arv" placeholder="e.g., 250000">
+                        </p>
+                        <p>
+                            <label for="calc-rehab">Estimated Rehab Costs ($):</label>
+                            <input type="number" id="calc-rehab" placeholder="e.g., 30000">
+                        </p>
+                        <p>
+                            <label for="calc-mao-percentage">MAO Percentage of ARV (%):</label>
+                            <input type="number" id="calc-mao-percentage" placeholder="e.g., 70" value="70">
+                        </p>
+                        <p>
+                            <label for="calc-wholesale-fee">Desired Wholesale Fee ($) (Optional):</label>
+                            <input type="number" id="calc-wholesale-fee" placeholder="e.g., 10000">
+                        </p>
+                    </div>
+                    <div class="calculator-results">
+                        <h3>Calculated Estimates:</h3>
+                        <p><strong>Suggested ARV (from Comps Avg Price/SqFt):</strong> $<span id="calc-suggested-arv">N/A</span>
+                            <br><small>(Based on property SqFt and comps avg. price/sqft. Use as a rough guide.)</small>
+                        </p>
+                        <hr>
+                        <p class="result-highlight"><strong>Max Allowable Offer (MAO):</strong> $<span id="calc-mao">N/A</span></p>
+                        <p class="result-highlight"><strong>Potential Buyer's Price (MAO + Fee):</strong> $<span id="calc-buyer-price">N/A</span></p>
+                        <p class="result-note"><small>MAO = (ARV * % ) - Rehab Costs - Wholesale Fee (if entered, otherwise MAO is based on ARV* % - Rehab)</small></p>
+                        <p class="result-note"><small>Buyer's Price assumes you add your fee on top of your MAO when selling to an end buyer.</small></p>
+                    </div>
+                </div>
+            </section>
         </div>
+
+        <details id="fullApiResponseSection" class="dashboard-section full-width-section">
+            <summary>Full API Response (Debug)</summary>
+            <pre id="responseArea"></pre>
+        </details>
     </div>
 
-    <!-- Link to JavaScript file (will be created in the next step) -->
     <script src="/static/script.js"></script>
 </body>
 </html>

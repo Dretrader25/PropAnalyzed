@@ -76,9 +76,9 @@ Send a GET request to the `/get-property-info` endpoint:
 
 Replace the address with the one you want to query.
 
-## HTML Frontend
+## HTML Frontend - Wholesaler Dashboard
 
-A simple HTML frontend is available for interacting with the API directly from your browser. This is useful for quick tests and demonstrations.
+A user-friendly HTML frontend is available for interacting with the API and analyzing property data from a wholesaler's perspective. It's accessible directly from your browser and is useful for quick analysis, tests, and demonstrations.
 
 **Accessing the Frontend:**
 
@@ -88,8 +88,15 @@ A simple HTML frontend is available for interacting with the API directly from y
 **Using the Frontend:**
 
 1.  Enter a property address into the input field.
-2.  Click the "Get Property Info" button.
-3.  The API response (or any errors) will be displayed in a formatted JSON view on the page.
+2.  Click the "Analyze Property" button.
+3.  The frontend will display information in several dashboard sections:
+    *   **Property Overview:** Shows key details like address, property type, beds, baths, sqft, lot size, and year built.
+    *   **Listing & Market Info:** Displays current listing status, price, DOM (Days On Market), and relevant market metrics for the area.
+    *   **Comparable Sales Analysis:** Presents a table of comparable sales (if available), including sale price, date, sqft, price/sqft, and distance. It also calculates an average price/sqft from these comps.
+    *   **Wholesale Calculator (Conceptual):** An interactive tool where you can input your estimated ARV (After Repair Value), rehab costs, desired MAO percentage (of ARV), and wholesale fee. It then dynamically calculates the Max Allowable Offer (MAO) and a potential buyer's price. A "Suggested ARV" based on comps data is also displayed as a helpful starting point.
+    *   **Full API Response (Debug):** A collapsible section at the bottom shows the raw JSON response from the API for debugging or detailed inspection.
+
+4.  Error messages or issues encountered during data retrieval will be displayed in a designated error area.
 
 ## Project Structure
 
