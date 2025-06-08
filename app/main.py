@@ -1,4 +1,7 @@
 from fastapi import FastAPI, HTTPException, Depends, Query
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
+import os
 from typing import Optional, List
 import logging
 import httpx # Added for retry decorator
@@ -41,6 +44,28 @@ app = FastAPI(
     description="Provides enriched information for a given property address.",
     version="0.1.0"
 )
+
+# --- Mount static files directory ---
+# This will serve files from the 'static' directory under the path '/static'
+# e.g., a file static/style.css will be accessible at /static/style.css
+# Ensure the 'static' directory exists at the root of your project.
+# Construct the path to the static directory relative to this main.py file
+# Assuming main.py is in 'app/' and 'static/' is at the project root (one level up from 'app/')
+
+# Get the directory of the current file (app/main.py)
+current_file_dir = os.path.dirname(os.path.abspath(__file__))
+# Path to the project root (one level up from 'app/')
+project_root_dir = os.path.dirname(current_file_dir)
+# Path to the static directory
+static_files_dir = os.path.join(project_root_dir, "static")
+
+# Check if the static directory exists before trying to mount it
+if os.path.exists(static_files_dir) and os.path.isdir(static_files_dir):
+    app.mount("/static", StaticFiles(directory=static_files_dir), name="static")
+    logger.info(f"Mounted static files from directory: {static_files_dir}")
+else:
+    logger.warning(f"Static files directory not found at {static_files_dir}. Static files will not be served.")
+
 
 # --- Retryable service calls ---
 # Decorate the service functions that make external calls
@@ -109,13 +134,21 @@ async def startup_event():
 async def health_check():
     return {"status": "healthy", "message": "Application is running."}
 
-# Removed the /show-settings-test endpoint for cleaner main file.
-# It can be re-added for debugging if needed.
+# Existing root endpoint (API welcome) - keep it or change its path if / serves HTML
+@app.get("/", summary="API Root", include_in_schema=False) # Keep this for API discoverability
+async def api_root():
+    return {"message": "Welcome to the Property Lead Enrichment API. See /docs for API documentation or /ui for the frontend."}
 
-@app.get("/", summary="Root", include_in_schema=False)
-async def root():
-    return {"message": "Welcome to the Property Lead Enrichment API. See /docs for API documentation."}
-
+# New endpoint to serve the HTML frontend
+@app.get("/ui", summary="Serve Frontend UI", include_in_schema=False)
+async def serve_frontend():
+    html_file_path = os.path.join(static_files_dir, "index.html")
+    if os.path.exists(html_file_path):
+        return FileResponse(html_file_path)
+    else:
+        logger.error(f"index.html not found at {html_file_path}")
+        # You could return a 404 HTML response here or raise HTTPException
+        raise HTTPException(status_code=404, detail="Frontend index.html not found. Ensure it exists in the 'static' directory.")
 
 @app.get("/get-property-info", response_model=UnifiedPropertyResponse, summary="Get Enriched Property Information")
 async def get_property_information(

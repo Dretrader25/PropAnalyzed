@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Property Lead Enrichment</title>
+    <!-- Link to CSS file -->
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Property Information Lookup</h1>
+
+        <div>
+            <label for="addressInput">Enter Address:</label>
+            <input type="text" id="addressInput" placeholder="e.g., 123 Main St, Anytown, CA 90210">
+        </div>
+
+        <button id="submitAddress">Get Property Info</button>
+
+        <h2>API Response:</h2>
+        <div id="responseArea" aria-live="polite">
+            <p>Enter an address and click "Get Property Info" to see the results here.</p>
+        </div>
+    </div>
+
+    <!-- Link to JavaScript file (will be created in the next step) -->
+    <script src="/static/script.js"></script>
+</body>
+</html>

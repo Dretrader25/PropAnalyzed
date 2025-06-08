@@ -76,6 +76,21 @@ Send a GET request to the `/get-property-info` endpoint:
 
 Replace the address with the one you want to query.
 
+## HTML Frontend
+
+A simple HTML frontend is available for interacting with the API directly from your browser. This is useful for quick tests and demonstrations.
+
+**Accessing the Frontend:**
+
+1.  Ensure the FastAPI application is running (see "Running the Application" section).
+2.  Open your web browser and navigate to: `http://localhost:8000/ui` (replace `localhost:8000` with your actual host and port if different).
+
+**Using the Frontend:**
+
+1.  Enter a property address into the input field.
+2.  Click the "Get Property Info" button.
+3.  The API response (or any errors) will be displayed in a formatted JSON view on the page.
+
 ## Project Structure
 
 *   `app/`: Main application module.
