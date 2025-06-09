@@ -1,48 +1,87 @@
-/* Keep existing styles from before, and add/modify below */
+:root {
+    --color-background-primary: #121212; /* Deep dark grey */
+    --color-background-secondary: #1E1E1E; /* Slightly lighter for cards/sections */
+    --color-background-input: #2C2C2C; /* Background for inputs */
+    --color-text-primary: #E0E0E0;     /* Light grey for main text */
+    --color-text-secondary: #BDBDBD;   /* Medium grey for less important text/labels */
+    --color-text-placeholder: #757575; /* Grey for placeholder text */
+    --color-accent: #BB86FC;           /* Vibrant purple for highlights, buttons */
+    --color-accent-hover: #9e47f5;     /* Darker purple for hover */
+    --color-accent-active: #7f00f0;    /* Even darker for active */
+    --color-error: #CF6679;            /* Material dark theme error color */
+    --color-error-background: rgba(207, 102, 121, 0.1); /* Subtle background for error messages */
+    --color-success: #66bb6a;          /* Green for success highlights */
+    --color-border: #3A3A3A;           /* Subtle borders */
+    --color-table-header: #333333;
+    --color-table-row-even: #2C2C2C;
+    --color-json-bg: #282c34;          /* Dark background for JSON view */
+    --color-json-text: #abb2bf;        /* Light text for JSON view */
+}
 
 body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif; /* More comprehensive system stack */
     margin: 0;
-    padding: 0; /* Remove default body padding, handle with container */
-    background-color: #f4f4f8;
-    color: #333;
+    padding: 0;
+    background-color: var(--color-background-primary);
+    color: var(--color-text-primary);
     line-height: 1.6;
+    font-size: 16px; /* Base font size */
 }
 
 .container {
-    max-width: 1200px; /* Wider for dashboard */
-    margin: 20px auto;
-    background-color: #fff;
-    padding: 20px 30px; /* Adjusted padding */
-    border-radius: 8px;
-    box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+    max-width: 1200px;
+    margin: 30px auto; /* More top/bottom margin */
+    background-color: var(--color-background-primary); /* Keep container same as body or make it var(--color-background-secondary) if sections are darker */
+                                                    /* Let's make sections distinct, so container can be primary bg */
+    padding: 25px 30px;
+    border-radius: 12px; /* Slightly larger radius */
+    /* No box-shadow needed if container blends with body, or a very subtle one if different */
+}
+
+/* General link styling */
+a {
+    color: var(--color-accent);
+    text-decoration: none;
+    transition: color 0.2s ease-in-out;
+}
+
+a:hover {
+    color: var(--color-accent-hover);
+    text-decoration: underline;
 }
 
 h1 {
-    color: #2c3e50;
-    margin-bottom: 25px;
+    color: var(--color-text-primary); /* Brighter for main heading */
+    margin-bottom: 30px; /* Increased margin */
     text-align: center;
+    font-size: 2.2rem; /* Adjusted size */
+    font-weight: 600; /* Slightly bolder */
 }
 
 h2 { /* Section headers */
-    color: #34495e;
-    margin-top: 10px; /* Reduced top margin for sections */
-    margin-bottom: 15px;
-    border-bottom: 2px solid #007bff; /* Accent border */
-    padding-bottom: 8px;
-    font-size: 1.4rem;
+    color: var(--color-text-primary);
+    margin-top: 20px;
+    margin-bottom: 20px; /* Consistent margin */
+    border-bottom: 2px solid var(--color-accent); /* Use accent for border */
+    padding-bottom: 10px; /* Increased padding */
+    font-size: 1.6rem; /* Adjusted size */
+    font-weight: 500;
 }
 
-h2 .icon { /* Style for emoji icons */
-    margin-right: 8px;
-    font-size: 1.3rem; /* Slightly smaller than text for balance */
+h2 .icon {
+    margin-right: 10px; /* More space for icon */
+    font-size: 1.5rem;
+    color: var(--color-accent); /* Icon color to accent */
 }
 
 h3 { /* Sub-headers like in calculator */
-    color: #34495e;
-    margin-top: 15px;
-    margin-bottom: 10px;
-    font-size: 1.1rem;
+    color: var(--color-text-primary);
+    margin-top: 20px;
+    margin-bottom: 15px;
+    font-size: 1.25rem; /* Adjusted size */
+    font-weight: 500;
+    border-bottom: 1px solid var(--color-border); /* Subtle border for h3 */
+    padding-bottom: 5px;
 }
 
 .input-section {
@@ -55,211 +94,427 @@ h3 { /* Sub-headers like in calculator */
 
 label {
     display: block;
-    margin-bottom: 6px;
-    font-weight: 600; /* Slightly bolder */
-    color: #455a64; /* Darker label color */
+    margin-bottom: 8px;
+    font-weight: 500; /* Slightly less bold than previous */
+    color: var(--color-text-secondary); /* Use secondary text color for labels */
+    font-size: 0.9rem; /* Smaller label size */
+}
+
+p { /* General paragraph styling */
+    margin-bottom: 12px;
+    color: var(--color-text-primary);
+}
+
+/* Ensure data display elements also use appropriate text colors */
+.data-fields p strong, .calculator-inputs p strong, .calculator-results p strong {
+    color: var(--color-text-secondary); /* Make field titles slightly less prominent than values */
+    margin-right: 8px; /* More space */
+    font-weight: 500;
+}
+.data-fields span, .calculator-results span { /* For the data values */
+    color: var(--color-text-primary); /* Primary text for values */
+    font-weight: 500; /* Keep values distinct */
+}
+/* Specific value highlights can override this, e.g., calculator results */
+.calculator-results .result-highlight span {
+    color: var(--color-success); /* Use success color variable */
+}
+#calc-suggested-arv {
+    font-weight: 500; /* Normal weight for suggested, actual value is what matters */
+    color: var(--color-text-secondary); /* Less prominent */
+}
+#calc-suggested-arv + small { /* Style the note below suggested ARV */
+    font-size: 0.8em;
+    color: var(--color-text-secondary);
+    display: block; /* Ensure it's on its own line if not already */
+    margin-top: -5px; /* Adjust spacing */
 }
 
 input[type="text"],
-input[type="number"] { /* Apply to number inputs as well */
-    width: calc(100% - 24px);
-    padding: 10px 12px; /* Adjusted padding */
-    margin-bottom: 15px; /* Consistent margin */
-    border: 1px solid #ccc;
-    border-radius: 4px;
+input[type="number"] {
+    width: calc(100% - 24px); /* Ensure this rule is not duplicated if already precise */
+    padding: 12px;
+    margin-bottom: 15px;
+    background-color: var(--color-background-input); /* Darker background for inputs */
+    color: var(--color-text-primary); /* Light text for input */
+    border: 1px solid var(--color-border); /* Subtle border */
+    border-radius: 6px; /* Slightly more rounded */
     box-sizing: border-box;
     font-size: 0.95rem;
+    transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out; /* Smooth transitions */
+}
+
+/* Styling for placeholder text */
+input[type="text"]::placeholder,
+input[type="number"]::placeholder {
+    color: var(--color-text-placeholder); /* Placeholder text color */
+    opacity: 1; /* Ensure it's not too faint */
 }
 
 input[type="text"]:focus,
 input[type="number"]:focus {
-    border-color: #007bff;
-    box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+    border-color: var(--color-accent); /* Accent color border on focus */
+    box-shadow: 0 0 5px var(--color-accent); /* Simpler glow */
     outline: none;
 }
 
-button#submitAddress { /* More specific selector */
-    display: block; /* Make button full width in its container */
+button#submitAddress {
+    display: block;
     width: 100%;
     padding: 12px 20px;
-    background-color: #007bff;
-    color: white;
+    background-color: var(--color-accent); /* Accent color for button */
+    color: #ffffff; /* White text on accent button */
     border: none;
-    border-radius: 4px;
+    border-radius: 6px; /* Consistent rounding */
     cursor: pointer;
-    font-size: 1.05rem; /* Slightly larger */
-    font-weight: 500;
-    transition: background-color 0.2s ease-in-out;
+    font-size: 1.05rem;
+    font-weight: 500; /* Adjusted font weight */
+    transition: background-color 0.2s ease-in-out, transform 0.1s ease; /* Added transform transition */
 }
 
 button#submitAddress:hover {
-    background-color: #0056b3;
+    background-color: var(--color-accent-hover); /* Darker accent on hover */
+    transform: translateY(-1px); /* Subtle lift effect */
 }
 
 button#submitAddress:active {
-    background-color: #004085;
+    background-color: var(--color-accent-active); /* Even darker on active */
+    transform: translateY(0px); /* Reset lift */
 }
 
 /* Dashboard Layout */
 .dashboard-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); /* Responsive columns */
-    gap: 25px; /* Gap between sections */
-    margin-top: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 25px;
+    margin-top: 30px; /* Increased margin from input section */
 }
 
 .dashboard-section {
-    background-color: #ffffff;
-    padding: 20px;
-    border-radius: 6px;
-    box-shadow: 0 1px 5px rgba(0,0,0,0.08);
+    background-color: var(--color-background-secondary); /* Use secondary background for cards */
+    padding: 25px; /* Increased padding within sections */
+    border-radius: 10px; /* Softer, larger radius for cards */
+    border: 1px solid var(--color-border); /* Keep this for definition */
+    box-shadow: none; /* Remove pronounced shadow, rely on bg difference and border */
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out; /* For potential hover effects */
 }
+
+/* Optional: Add a subtle hover effect to sections if desired */
+/* .dashboard-section:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.25); /* Slightly more pronounced shadow on hover */
+/* } */
+
 
 .dashboard-section.full-width-section {
-    grid-column: 1 / -1; /* Span all columns */
+    grid-column: 1 / -1;
 }
 
-.data-fields p, .calculator-inputs p, .calculator-results p {
-    margin-bottom: 10px; /* Space between data points */
-    line-height: 1.5;
+/* Section Headers (h2) - already styled in typography, but ensure they fit the card */
+/* h2 { ... color: var(--color-text-primary); border-bottom: 2px solid var(--color-accent); ... } */
+/* h2 .icon { ... color: var(--color-accent); ... } */
+/* No changes needed here if previous typography step was sufficient. */
+
+/* Data fields within sections - ensure proper spacing */
+.data-fields p { /* This rule was already modified by typography step, ensure it's using correct variables */
+    margin-bottom: 12px;
+    line-height: 1.6;
+    /* color: var(--color-text-primary); /* Ensured by general 'p' styling now */
 }
-.data-fields p strong, .calculator-inputs p strong, .calculator-results p strong {
-    color: #333; /* Ensure strong tags are clearly visible */
-    margin-right: 5px;
+.data-fields p strong { /* This rule was already modified by typography step */
+    color: var(--color-text-secondary);
+    margin-right: 8px;
+    font-weight: 500;
 }
-.data-fields span, .calculator-results span { /* For the data values */
-    color: #007bff; /* Highlight data values */
+.data-fields span { /* This rule was already modified by typography step */
+    color: var(--color-text-primary);
     font-weight: 500;
 }
 
+/* Style property-stats within the overview card */
 .property-stats {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-    gap: 10px;
-    margin-top: 10px;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); /* Ensure items have enough space */
+    gap: 12px; /* Slightly more gap */
+    margin-top: 15px; /* Space from other p elements */
 }
 .property-stats div {
-    background-color: #f9f9f9;
-    padding: 8px;
-    border-radius: 4px;
-    border: 1px solid #eee;
+    background-color: var(--color-background-input); /* Use input background for these stat boxes */
+    padding: 12px; /* More padding */
+    border-radius: 6px; /* Consistent rounding */
+    border: 1px solid var(--color-border);
+    text-align: center; /* Center text in stat boxes */
+}
+.property-stats div strong { /* Label (e.g., "Beds:") */
+    display: block;
+    color: var(--color-text-secondary);
+    font-size: 0.85rem;
+    margin-bottom: 4px;
+}
+.property-stats div span { /* Value (e.g., "3") */
+    display: block;
+    color: var(--color-text-primary);
+    font-size: 1.1rem; /* Larger font for the value */
+    font-weight: 600; /* Bolder value */
 }
 
 /* Comps Table Styling */
+#compsTableContainer { /* Add some margin to the container itself */
+    margin-top: 15px;
+    overflow-x: auto; /* Add horizontal scroll for table on small screens */
+}
+
 #compsTableContainer table {
     width: 100%;
-    border-collapse: collapse;
-    margin-top: 10px;
+    border-collapse: collapse; /* Keep this */
+    margin-top: 10px; /* Already there, good */
+    /* Remove any default table border if browser adds one, we control it with th/td */
+    border: 1px solid var(--color-border); /* Add a border around the whole table */
+    border-radius: 6px; /* Rounded corners for the table */
+    overflow: hidden; /* Ensures border-radius clips th/td backgrounds */
 }
-#compsTableContainer th, #compsTableContainer td {
-    border: 1px solid #ddd;
-    padding: 10px; /* More padding */
+
+#compsTableContainer th,
+#compsTableContainer td {
+    border: 1px solid var(--color-border); /* Use defined border color */
+    padding: 12px 15px; /* Increased padding */
     text-align: left;
-    font-size: 0.9rem;
+    font-size: 0.9rem; /* Consistent font size */
+    color: var(--color-text-primary); /* Default text color for cells */
 }
+
 #compsTableContainer th {
-    background-color: #007bff; /* Header background */
-    color: white;
+    background-color: var(--color-table-header); /* Use variable from :root, e.g. #333333 */
+    color: var(--color-text-primary); /* Light text on dark header */
     font-weight: 600;
+    /* Ensure top-left and top-right corners are rounded if table has rounded corners */
+    /* This is handled by table's overflow:hidden and border-radius */
 }
+
+#compsTableContainer tbody tr {
+    border-bottom: 1px solid var(--color-border); /* Separator for rows */
+    transition: background-color 0.15s ease-in-out; /* Smooth hover transition */
+}
+
 #compsTableContainer tbody tr:nth-child(even) {
-    background-color: #f9f9f9; /* Zebra striping */
+    background-color: var(--color-table-row-even); /* Use variable, e.g. #2C2C2C for even rows */
 }
+
+#compsTableContainer tbody tr:nth-child(odd) {
+    background-color: var(--color-background-secondary); /* Use section bg for odd rows, for contrast */
+}
+
+
 #compsTableContainer tbody tr:hover {
-    background-color: #e9ecef; /* Hover effect */
+    background-color: var(--color-accent); /* Use accent color for hover */
+    color: #ffffff; /* Ensure text is readable on accent hover; might need to target td span directly */
+}
+
+/* If text color in td doesn't change on tr:hover, target td directly or spans within */
+#compsTableContainer tbody tr:hover td {
+    color: #ffffff; /* White text on accent hover for all cells in that row */
+}
+
+
+/* Adjusting the display of values within the table for consistency */
+#compsTableContainer td {
+    /* Values are directly in td, so this sets their color */
+    color: var(--color-text-primary);
+}
+#compsTableContainer td:nth-child(3), /* Sale Price */
+#compsTableContainer td:nth-child(5)  /* Price/SqFt */ {
+    font-weight: 500; /* Make monetary values slightly bolder */
+}
+
+
+/* Styling for the "Average Price/SqFt (Comps)" text below the table */
+#comparableSalesAnalysis .data-fields > p { /* Target the p tag directly containing the average */
+    margin-top: 20px;
+    padding: 10px;
+    background-color: var(--color-background-input); /* Use input bg for this summary */
+    border-radius: 4px;
+    border: 1px solid var(--color-border);
+    font-weight: 500;
+}
+#comparableSalesAnalysis .data-fields > p strong {
+    color: var(--color-text-secondary);
+}
+#comparableSalesAnalysis .data-fields > p span#comps-avg-price-per-sqft { /* The actual value */
+    color: var(--color-success); /* Highlight the average price/sqft value */
+    font-weight: bold;
+    font-size: 1.05em; /* Slightly larger */
 }
 
 /* Wholesale Calculator Specifics */
 .calculator-flex-container {
     display: flex;
-    flex-wrap: wrap; /* Allow wrapping on small screens */
-    gap: 30px;
+    flex-wrap: wrap;
+    gap: 30px; /* Existing gap is good */
+    /* background-color: var(--color-background-input); /* Optional: give the whole calc a slightly different bg */
+    /* padding: 20px; */
+    /* border-radius: 6px; */
+    /* border: 1px solid var(--color-border); */
+    /* Decided against this extra boxing for now, keep it clean within the section card */
 }
-.calculator-inputs, .calculator-results {
+
+.calculator-inputs,
+.calculator-results {
     flex: 1;
-    min-width: 280px; /* Minimum width before wrapping */
+    min-width: 280px;
+    /* background-color: var(--color-background-secondary); /* Already part of .dashboard-section */
+    /* padding: 15px; */ /* Padding is handled by .dashboard-section */
+    /* border-radius: 6px; */
 }
-.calculator-inputs input[type="number"] {
-    margin-bottom: 10px; /* Slightly less margin within calculator */
+
+.calculator-inputs h3,
+.calculator-results h3 {
+    /* Typography for h3 already defined, ensure it's suitable */
+    /* color: var(--color-text-primary); */
+    /* border-bottom: 1px solid var(--color-border); */
+    /* padding-bottom: 5px; */
+    margin-top: 0; /* Remove top margin if it's the first element in the flex item */
 }
+
+.calculator-inputs p,
+.calculator-results p {
+    margin-bottom: 15px; /* Consistent spacing for p tags */
+}
+
+/* Input fields within calculator already inherit global dark theme input styles. */
+/* No specific overrides needed unless different styling is desired here. */
+.calculator-inputs label {
+    /* Already styled globally, ensure font size/color is good. */
+    /* font-size: 0.9rem; color: var(--color-text-secondary); */
+}
+
+/* Styling for calculated result values */
+#calc-suggested-arv { /* This is a suggestion, so keep it less prominent or distinct */
+    color: var(--color-text-secondary); /* Or a muted version of accent */
+    font-weight: 500;
+    /* font-style: italic; */ /* Optional: make it italic */
+}
+#calc-suggested-arv + small { /* The note below it */
+    display: block;
+    font-size: 0.8em;
+    color: var(--color-text-secondary);
+    margin-top: 2px; /* Adjusted spacing */
+    line-height: 1.3;
+}
+
+
 .calculator-results .result-highlight {
-    font-size: 1.1rem;
-    font-weight: bold;
+    font-size: 1.15rem; /* Slightly larger */
+    font-weight: 600; /* Bolder */
     margin-top: 15px;
+    padding: 10px;
+    background-color: var(--color-background-input); /* Subtle background for highlight */
+    border-radius: 4px;
+    border-left: 4px solid var(--color-success); /* Accent border on the left */
 }
- .calculator-results .result-highlight span {
-    color: #28a745; /* Green for positive results */
- }
+
+.calculator-results .result-highlight strong { /* e.g., "Max Allowable Offer (MAO):" */
+    color: var(--color-text-primary); /* Ensure label is primary text color */
+    font-weight: 600;
+}
+
+.calculator-results .result-highlight span#calc-mao,
+.calculator-results .result-highlight span#calc-buyer-price {
+    color: var(--color-success); /* Use success color variable for these key results */
+    /* font-weight: bold; already handled by .result-highlight if needed or can be more specific */
+}
+
 .calculator-results .result-note small {
     display: block;
-    margin-top: 5px;
-    color: #666;
+    margin-top: 8px; /* More space for notes */
+    color: var(--color-text-secondary);
     font-size: 0.85em;
-}
-#calc-suggested-arv { /* Make suggested ARV stand out a bit */
-    font-weight: bold;
-}
-
-
-/* Loading and Error Messages (already had some inline) */
-#loadingMessage.loading { /* More specific selector */
-    text-align: center;
-    padding: 15px;
-    font-style: italic;
-    color: #555;
-    background-color: #e9ecef;
-    border-radius: 4px;
-    margin-bottom: 20px;
-}
-
-#errorMessage.error { /* More specific selector */
-    color: #d9534f;
-    font-weight: normal; /* Let pre inside handle bolding for error details */
-    padding: 15px;
-    border: 1px solid #d9534f;
-    background-color: #f2dede;
-    border-radius: 4px;
-    margin-bottom: 20px;
-}
-#errorMessage.error pre { /* Style for preformatted error details inside error message div */
-    margin-top: 10px;
-    padding: 10px;
-    background-color: #f8f9fa; /* Lighter than error message background */
-    border-radius: 3px;
-    border: 1px solid #ced4da;
-    color: #212529;
-    font-weight: normal;
-    white-space: pre-wrap;
-    word-wrap: break-word;
-}
-
-
-/* Collapsible Full API Response */
-#fullApiResponseSection {
-    margin-top: 20px;
-    background-color: #f8f9fa; /* Lighter background */
-}
-#fullApiResponseSection summary {
-    cursor: pointer;
-    font-weight: bold;
-    padding: 10px;
-    background-color: #e9ecef;
-    border-radius: 4px;
-    border: 1px solid #ddd;
-}
-#fullApiResponseSection pre#responseArea { /* Target the pre tag inside */
-    margin-top: 0; /* Remove top margin if summary is clicked */
-    padding: 15px;
-    background-color: #333; /* Dark background for JSON */
-    color: #f0f0f0; /* Light text for JSON */
-    border: 1px solid #ddd;
-    border-top: none; /* Avoid double border with summary */
-    border-radius: 0 0 4px 4px; /* Round bottom corners */
-    font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
-    font-size: 0.85rem;
     line-height: 1.4;
 }
 
+/* Loading and Error Messages */
+#loadingMessage.loading {
+    text-align: center;
+    padding: 20px; /* More padding */
+    font-style: italic;
+    color: var(--color-text-secondary); /* Use secondary text for less emphasis */
+    background-color: var(--color-background-secondary); /* Consistent with section/card backgrounds */
+    border-radius: 6px; /* Consistent rounding */
+    margin: 20px 0; /* Consistent vertical margin */
+    border: 1px dashed var(--color-border); /* Dashed border to indicate temporary state */
+}
+
+#errorMessage.error {
+    color: var(--color-error); /* Use error color variable for text */
+    font-weight: 500; /* Slightly bolder for error text */
+    padding: 15px 20px; /* Adjusted padding */
+    border: 1px solid var(--color-error); /* Error color border */
+    background-color: var(--color-error-background); /* Subtle error background */
+    border-radius: 6px;
+    margin: 20px 0; /* Consistent vertical margin */
+    line-height: 1.5; /* Ensure good line height for multi-line errors */
+}
+
+/* Style for <pre> tag when it's inside an #errorMessage div */
+#errorMessage.error pre {
+    margin-top: 10px;
+    padding: 10px 15px;
+    background-color: rgba(0,0,0,0.2); /* Darker, slightly transparent background for pre */
+    border-radius: 4px;
+    border: 1px solid var(--color-border);
+    color: var(--color-text-secondary); /* Lighter grey for pre text, not primary error color */
+    font-weight: normal; /* Reset from parent .error if needed */
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    font-size: 0.85rem; /* Smaller for debug info */
+}
+
+
+/* Collapsible Full API Response (Debug) Section */
+#fullApiResponseSection {
+    margin-top: 30px; /* More space above this section */
+    background-color: transparent; /* Make the <details> element itself transparent */
+    /* border: 1px solid var(--color-border); */ /* Optional: border around the whole thing */
+    /* border-radius: 6px; */
+}
+
+#fullApiResponseSection summary {
+    cursor: pointer;
+    font-weight: 500; /* Less bold than h2/h3 */
+    padding: 12px 15px;
+    background-color: var(--color-background-input); /* Use input background for summary */
+    color: var(--color-text-secondary); /* Secondary text for summary */
+    border-radius: 6px;
+    border: 1px solid var(--color-border);
+    transition: background-color 0.2s ease-in-out;
+    outline: none; /* Remove default focus outline for details/summary */
+}
+
+#fullApiResponseSection summary:hover {
+    background-color: var(--color-border); /* Darken slightly on hover */
+}
+
+/* Style for the arrow/marker of the details element */
+#fullApiResponseSection summary::marker { /* Or summary::-webkit-details-marker for Safari */
+    color: var(--color-text-secondary);
+}
+#fullApiResponseSection summary:focus-visible { /* Add custom focus style */
+    box-shadow: 0 0 0 2px var(--color-accent);
+}
+
+
+#fullApiResponseSection pre#responseArea {
+    margin-top: 0;
+    padding: 20px; /* More padding for JSON view */
+    background-color: var(--color-json-bg); /* Use specific JSON bg from :root */
+    color: var(--color-json-text);          /* Use specific JSON text color */
+    border: 1px solid var(--color-border);
+    border-top: none;
+    border-radius: 0 0 6px 6px;
+    font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+    font-size: 0.9rem; /* Slightly larger for better readability */
+    line-height: 1.5; /* Improved line height for JSON */
+    overflow-x: auto; /* Ensure JSON can scroll horizontally if too wide */
+}
 
 /* Responsive adjustments (already had a basic one) */
 @media (max-width: 768px) { /* Adjust breakpoint */
